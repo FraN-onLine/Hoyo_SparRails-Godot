@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=4 format=3 uid="uid://b6qe6bofoafm"]
+
+[ext_resource type="Texture2D" uid="uid://cl23432wertbw" path="res://Assets/Chars/Aglaea.png" id="1_0x6py"]
+[ext_resource type="Script" path="res://Scripts/UnitStats.gd" id="1_ofir3"]
+[ext_resource type="Texture2D" uid="uid://cpg8arjlit5ww" path="res://Assets/Element/Geo.png" id="3_y2lyo"]
+
+[resource]
+script = ExtResource("1_ofir3")
+character_name = "Aglaea"
+character_element = "Electro"
+weakness = "Geo"
+weaknessSprite = ExtResource("3_y2lyo")
+max_health = 80
+characterSprite = ExtResource("1_0x6py")
+move1_name = "Shwang Shwang"
+move1_damage = 10
+move1_element = "Physical"
+move1_description = "Deals 10 PHYSICAL damage"
+move1_type = "Elemental"
+move1_target = "Enemy"
+move_2_name = "Garment Maker Go!"
+move_2_damage = 30
+move_2_element = "Lightning"
+move_2_description = "Deals 30 LIGHTNING Damage"
+move_2_type = "Shield"
+move_2_target = "Self"

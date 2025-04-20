@@ -1,0 +1,163 @@
+[gd_scene load_steps=14 format=3 uid="uid://ddcjpqee7ijya"]
+
+[ext_resource type="Script" path="res://Scripts/UnitScript.gd" id="1_fbytt"]
+[ext_resource type="Script" path="res://Scripts/UnitStats.gd" id="2_5m3fd"]
+[ext_resource type="Texture2D" uid="uid://bwwxu4vdnjlec" path="res://Assets/Chars/Lanyan.png" id="2_yqc35"]
+[ext_resource type="PackedScene" uid="uid://ijse7o3bbuu3" path="res://Scenes/MoveMenu.tscn" id="3_tqj3r"]
+[ext_resource type="PackedScene" uid="uid://bduvsr3v23hhb" path="res://Assets/Particles/explosion.tscn" id="3_x3by0"]
+[ext_resource type="PackedScene" path="res://healthbar.tscn" id="4_85j1t"]
+[ext_resource type="Texture2D" uid="uid://c7ob7h3w62nk4" path="res://Assets/Element/Wind.png" id="6_m311n"]
+
+[sub_resource type="Resource" id="Resource_wklhx"]
+script = ExtResource("2_5m3fd")
+character_name = "Default Name"
+character_element = "Typeless"
+weakness = "Typeless"
+max_health = 100
+move1_name = "Default Move 1"
+move1_damage = 10
+move1_element = "Physical"
+move1_description = "Default Move 1 Description"
+move1_type = "Elemental"
+move1_target = "Enemy"
+move_2_name = "Default Move 2"
+move_2_damage = 30
+move_2_element = "Fire"
+move_2_description = "Default Move 2 Description"
+move_2_type = "Shield"
+move_2_target = "Self"
+
+[sub_resource type="Animation" id="Animation_smnpu"]
+resource_name = "Bounce"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-2.99999, 3.49996), Vector2(-3, 17)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.301389, 0.30758), Vector2(0.301389, 0.231778)]
+}
+
+[sub_resource type="Animation" id="Animation_fo36m"]
+resource_name = "Idle"
+
+[sub_resource type="Animation" id="Animation_w022h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2.99999, 3.49996)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.301389, 0.30758)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_61f3h"]
+_data = {
+"Bounce": SubResource("Animation_smnpu"),
+"Idle": SubResource("Animation_fo36m"),
+"RESET": SubResource("Animation_w022h")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jti4b"]
+size = Vector2(146, 174)
+
+[node name="Unit" type="Node2D"]
+position = Vector2(-1, 0)
+script = ExtResource("1_fbytt")
+stats = SubResource("Resource_wklhx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.99999, 3.49996)
+scale = Vector2(0.301389, 0.30758)
+texture = ExtResource("2_yqc35")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_61f3h")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(5, -5)
+shape = SubResource("RectangleShape2D_jti4b")
+
+[node name="MoveMenu" parent="." instance=ExtResource("3_tqj3r")]
+visible = false
+position = Vector2(51, 39)
+
+[node name="explosion" parent="." instance=ExtResource("3_x3by0")]
+position = Vector2(-1, -3)
+
+[node name="CPUParticles2D" parent="explosion" index="0"]
+position = Vector2(-1, 5)
+amount = 65
+lifetime = 1.3
+
+[node name="Healthbar" parent="." instance=ExtResource("4_85j1t")]
+offset_left = -50.0
+offset_top = -107.0
+offset_right = 61.0
+offset_bottom = -91.0
+
+[node name="Name" type="Label" parent="."]
+offset_left = -51.0
+offset_top = -132.0
+offset_right = -4.0
+offset_bottom = -109.0
+text = "Name"
+
+[node name="HP" type="Label" parent="."]
+offset_left = -53.0
+offset_top = -92.0
+offset_right = 9.0
+offset_bottom = -69.0
+text = "100/100"
+
+[node name="Weakness" type="Sprite2D" parent="."]
+position = Vector2(47, -123)
+scale = Vector2(0.0359376, 0.0367188)
+texture = ExtResource("6_m311n")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+
+[editable path="MoveMenu"]
+[editable path="explosion"]

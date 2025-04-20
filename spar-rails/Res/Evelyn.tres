@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UnitStats" load_steps=4 format=3 uid="uid://daxkas3f5syn"]
+
+[ext_resource type="Texture2D" uid="uid://csnwaf6lx3ajl" path="res://Assets/Chars/Evelyn.png" id="1_342yx"]
+[ext_resource type="Script" path="res://Scripts/UnitStats.gd" id="1_ly2wc"]
+[ext_resource type="Texture2D" uid="uid://ccm7ebvyp61nw" path="res://Assets/Element/Lightning.png" id="3_281hb"]
+
+[resource]
+script = ExtResource("1_ly2wc")
+character_name = "Evelyn"
+character_element = "Typeless"
+weakness = "Lightning"
+weaknessSprite = ExtResource("3_281hb")
+max_health = 100
+characterSprite = ExtResource("1_342yx")
+move1_name = "Garotte"
+move1_damage = 10
+move1_element = "Physical"
+move1_description = "Default Move 1 Description"
+move1_type = "Elemental"
+move1_target = "Enemy"
+move_2_name = "Shing Shing"
+move_2_damage = 10
+move_2_element = "Fire"
+move_2_description = "Default Move 2 Description"
+move_2_type = "Shield"
+move_2_target = "Self"

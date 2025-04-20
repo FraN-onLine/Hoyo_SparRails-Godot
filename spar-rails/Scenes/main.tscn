@@ -1,0 +1,37 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxmxlxewxupc2"]
+
+[ext_resource type="PackedScene" uid="uid://bo0cgncpvd6hn" path="res://Scenes/UI.tscn" id="1_6x0gj"]
+[ext_resource type="PackedScene" uid="uid://ddcjpqee7ijya" path="res://Unit.tscn" id="1_teurj"]
+[ext_resource type="Resource" uid="uid://o0cq484dxp5f" path="res://Res/Lanyan.tres" id="2_ghkny"]
+[ext_resource type="Resource" uid="uid://b6qe6bofoafm" path="res://Res/Aglaea.tres" id="3_vhddu"]
+[ext_resource type="Resource" uid="uid://daxkas3f5syn" path="res://Res/Evelyn.tres" id="4_of622"]
+[ext_resource type="PackedScene" uid="uid://bi58ak4evm60c" path="res://Enemy.tscn" id="5_snj5q"]
+[ext_resource type="Resource" uid="uid://biu8xwrslam3l" path="res://Res/Chiori.tres" id="6_e3bvx"]
+[ext_resource type="Texture2D" uid="uid://bt70vu856duhc" path="res://Assets/Background/grass.jpg" id="7_bwbjj"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Control" parent="." instance=ExtResource("1_6x0gj")]
+
+[node name="Unit" parent="." groups=["FriendlyUnits"] instance=ExtResource("1_teurj")]
+position = Vector2(160, 183)
+stats = ExtResource("2_ghkny")
+
+[node name="Unit2" parent="." groups=["FriendlyUnits"] instance=ExtResource("1_teurj")]
+position = Vector2(368, 331)
+stats = ExtResource("3_vhddu")
+
+[node name="Unit3" parent="." groups=["FriendlyUnits"] instance=ExtResource("1_teurj")]
+position = Vector2(147, 516)
+stats = ExtResource("4_of622")
+
+[node name="Boss" parent="." groups=["HostileUnits"] instance=ExtResource("5_snj5q")]
+position = Vector2(797, 333)
+stats = ExtResource("6_e3bvx")
+
+[node name="Grass" type="Sprite2D" parent="."]
+z_index = -7
+position = Vector2(666.5, 405)
+scale = Vector2(1.84861, 2.27778)
+texture = ExtResource("7_bwbjj")
+metadata/_edit_lock_ = true
